@@ -1,6 +1,6 @@
 {
   "name": "ormgpt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./dist/index.js",
   "repository": {
     "url": "https://github.com/pilotpirxie/ormGPT.git",
