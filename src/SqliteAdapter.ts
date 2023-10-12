@@ -8,14 +8,16 @@ export class SqliteAdapter implements DatabaseEngineAdapter {
     this.db = new betterSqlite3(dbFilePath);
   }
 
-  executeQuery(query: string): unknown[] {
-    const statement: Statement = this.db.prepare(query);
-    if (this.isSelectQuery(query)) {
-      return statement.all();
-    } else {
-      const info = statement.run();
-      return [];
-    }
+  executeQuery(query: string): Promise<unknown[]> {
+    return new Promise((resolve, reject) => {
+      const statement: Statement = this.db.prepare(query);
+      if (this.isSelectQuery(query)) {
+        resolve(statement.all());
+      } else {
+        const info = statement.run();
+        resolve([]);
+      }
+    });
   }
 
   private isSelectQuery(query: string): boolean {

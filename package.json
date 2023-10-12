@@ -5,12 +5,14 @@
   "license": "MIT",
   "scripts": {
     "demo": "ts-node example/index.ts",
-    "demo:getQuery": "ts-node example/index.ts",
-    "demo:query": "ts-node example/query.ts"
+    "demo:local": "ts-node example/index.ts",
+    "demo:sqlite": "ts-node example/sqlite.ts",
+    "demo:postgres": "ts-node example/postgres.ts"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.5",
     "@types/node": "18",
+    "@types/pg": "^8.10.5",
     "dotenv": "^16.3.1",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.1",

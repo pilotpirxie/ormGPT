@@ -8,7 +8,7 @@ import { SqliteAdapter } from "../src/SqliteAdapter";
   });
 
   const ormgpt = new ormGPT({
-    apiKey: "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",
+    apiKey: process.env.OPENAI_API_KEY || "",
     schemaFilePath: "./example/schema.sql",
     dialect: "postgres",
     dbEngineAdapter: sqliteAdapter,

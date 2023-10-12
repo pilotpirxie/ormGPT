@@ -4,7 +4,7 @@ import {ormGPT} from "../src";
 
 (async () => {
   const ormgpt = new ormGPT({
-    apiKey: process.env.OPENAI_API_KEY as string,
+    apiKey: process.env.OPENAI_API_KEY || "",
     schemaFilePath: "./example/schema.sql",
     dialect: "postgres",
   });

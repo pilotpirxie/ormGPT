@@ -1,3 +1,3 @@
 export interface DatabaseEngineAdapter {
-  executeQuery(query: string): any[];
+  executeQuery(query: string): Promise<any[]>;
 }
