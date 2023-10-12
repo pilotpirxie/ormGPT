@@ -4,7 +4,6 @@ import {ErrorResponse} from "./ErrorResponse";
 import {SuccessResponse} from "./SuccessResponse";
 import {DatabaseEngineAdapter} from "./DatabaseEngineAdapter";
 
-
 export class ormGPT {
   private apiKey: string;
   private apiUrl: string = "https://api.openai.com/v1/chat/completions";

@@ -7,7 +7,8 @@
     "demo": "ts-node example/index.ts",
     "demo:local": "ts-node example/index.ts",
     "demo:sqlite": "ts-node example/sqlite.ts",
-    "demo:postgres": "ts-node example/postgres.ts"
+    "demo:postgres": "ts-node example/postgres.ts",
+    "demo:mysql": "ts-node example/mysql.ts"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.5",
@@ -30,6 +31,7 @@
   ],
   "dependencies": {
     "better-sqlite3": "^9.0.0",
+    "mysql2": "^3.6.1",
     "pg": "^8.11.3"
   }
 }

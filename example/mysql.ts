@@ -1,20 +1,18 @@
 import "dotenv/config";
 import { ormGPT } from "../src";
-import { SqliteAdapter } from "../src/SqliteAdapter";
-import {Client, Pool} from 'pg'
-import {PostgresAdapter} from "../src/PostgresAdapter";
+import {createConnection} from "mysql2/promise";
+import {MysqlAdapter} from "../src/MysqlAdapter";
 
 (async () => {
-  const client = new Client({
+  const client = await createConnection({
     host: 'localhost',
-    port: 5432,
+    port: 3306,
     database: 'ormgpt',
-    user: 'mysecretuser',
+    user: 'root',
     password: 'mysecretpassword',
   });
-  client.connect();
 
-  const postgresAdapter = new PostgresAdapter({
+  const postgresAdapter = new MysqlAdapter({
     client
   });
 
