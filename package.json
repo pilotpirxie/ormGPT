@@ -1,14 +1,19 @@
 {
   "name": "ormgpt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./dist/index.js",
+  "repository": {
+    "url": "https://github.com/pilotpirxie/ormGPT.git",
+    "type": "git"
+  },
   "license": "MIT",
   "scripts": {
     "demo": "ts-node example/index.ts",
     "demo:local": "ts-node example/index.ts",
     "demo:sqlite": "ts-node example/sqlite.ts",
     "demo:postgres": "ts-node example/postgres.ts",
-    "demo:mysql": "ts-node example/mysql.ts"
+    "demo:mysql": "ts-node example/mysql.ts",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.5",
@@ -33,5 +38,8 @@
     "better-sqlite3": "^9.0.0",
     "mysql2": "^3.6.1",
     "pg": "^8.11.3"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
