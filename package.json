@@ -1,0 +1,33 @@
+{
+  "name": "ormgpt",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "demo": "ts-node example/index.ts",
+    "demo:getQuery": "ts-node example/index.ts",
+    "demo:query": "ts-node example/query.ts"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.5",
+    "@types/node": "18",
+    "dotenv": "^16.3.1",
+    "prettier": "^3.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "keywords": [
+    "orm",
+    "mysql",
+    "ormgpt",
+    "postgresql",
+    "sqlite",
+    "query",
+    "database",
+    "db"
+  ],
+  "dependencies": {
+    "better-sqlite3": "^9.0.0",
+    "pg": "^8.11.3"
+  }
+}
