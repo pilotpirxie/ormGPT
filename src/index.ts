@@ -3,6 +3,7 @@ import path from "path";
 import {ErrorResponse} from "./ErrorResponse";
 import {SuccessResponse} from "./SuccessResponse";
 import {DatabaseEngineAdapter} from "./DatabaseEngineAdapter";
+import {ModelTuning} from "./ModelTuning";
 
 export class ormGPT {
   private apiKey: string;
@@ -10,32 +11,56 @@ export class ormGPT {
   private dbSchema: string;
   private dialect: string;
   private dbEngineAdapter?: DatabaseEngineAdapter;
+  private model: string = "gpt-3.5-turbo";
+  private modelOptions: ModelTuning = {
+    temperature: 1,
+    max_tokens: 256,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+  }
 
   constructor({
-                apiKey,
-                dialect,
-                schemaFilePath,
-                dbEngineAdapter,
-              }: {
+    apiKey,
+    dialect,
+    schemaFilePath,
+    dbEngineAdapter,
+    apiUrl,
+    model,
+    modelOptions
+  } : {
     apiKey: string;
     schemaFilePath: string;
     dialect: "postgres" | "mysql" | "sqlite";
     dbEngineAdapter?: DatabaseEngineAdapter;
+    apiUrl?: string;
+    model?: string;
+    modelOptions?: ModelTuning;
   }) {
     this.apiKey = apiKey;
     this.dbSchema = fs.readFileSync(path.resolve(schemaFilePath), "utf-8");
     this.dialect = dialect;
     this.dbEngineAdapter = dbEngineAdapter;
+
+    if (apiUrl) {
+      this.apiUrl = apiUrl;
+    }
+    if (model) {
+      this.model = model;
+    }
+    if (modelOptions) {
+      this.modelOptions = modelOptions;
+    }
   }
 
   private async getResponse(request: string): Promise<string> {
     const prompt = `
-                You are a SQL engine brain. 
+                You are an SQL engine brain. 
                 You are using ${this.dialect} dialect.
-                Having db schema as follow:
+                Having db schema as follows:
                 ${this.dbSchema}
                 
-                Write a query to fulfill the user request: ${request}
+                Write a query to fulfil the user request: ${request}
                 
                 Don't write anything else than SQL query.
             `;
@@ -47,18 +72,14 @@ export class ormGPT {
         Authorization: `Bearer ${this.apiKey}`,
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: this.model,
         messages: [
           {
             role: "user",
             content: prompt,
           },
         ],
-        temperature: 1,
-        max_tokens: 256,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
+        ...this.modelOptions,
       }),
     });
 
@@ -75,7 +96,7 @@ export class ormGPT {
     try {
       return await this.getResponse(request);
     } catch (error) {
-      console.error("Error when executing query", request);
+      console.error("Error when generating query", request);
       throw error;
     }
   }
@@ -86,7 +107,7 @@ export class ormGPT {
         throw new Error("No dbEngineAdapter provided");
       }
 
-      const query = await this.getResponse(request);
+      const query = await this.getQuery(request);
       console.log("Executing query", query);
       return this.dbEngineAdapter.executeQuery(query);
     } catch (error) {

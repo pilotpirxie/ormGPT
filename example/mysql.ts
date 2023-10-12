@@ -12,7 +12,7 @@ import {MysqlAdapter} from "../src/MysqlAdapter";
     password: 'mysecretpassword',
   });
 
-  const postgresAdapter = new MysqlAdapter({
+  const mysqlAdapter = new MysqlAdapter({
     client
   });
 
@@ -20,7 +20,7 @@ import {MysqlAdapter} from "../src/MysqlAdapter";
     apiKey: process.env.OPENAI_API_KEY || "",
     schemaFilePath: "./example/schema.sql",
     dialect: "postgres",
-    dbEngineAdapter: postgresAdapter,
+    dbEngineAdapter: mysqlAdapter,
   });
 
   await ormgpt.query(

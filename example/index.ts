@@ -23,13 +23,18 @@ import {ormGPT} from "../src";
   );
   console.log(postQuery2);
 
+  const postQuery3 = await ormgpt.getQuery(
+    "give me post with id 1, all comments for this post and user information about author",
+  );
+  console.log(postQuery3);
+
   const commentQuery = await ormgpt.getQuery(
     "give me all comments written between 2023-01-01 and 2023-12-01",
   );
   console.log(commentQuery);
 
   const commentQuery2 = await ormgpt.getQuery(
-    "write a comment for post with id 1 with content 'Hello world!' as user with id 3",
+    "add a comment for post with id 1 with content 'Hello world!' as user with id 3",
   );
   console.log(commentQuery2);
 
